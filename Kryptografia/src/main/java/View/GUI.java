@@ -47,7 +47,7 @@ public class GUI extends Application {
         Button generateKeyButton = new Button("Generuj klucz");
         Button saveKeyButton = new Button("Zapisz klucz do pliku");
         Button loadKeyButton = new Button("Wczytaj klucz z pliku");
-        Label keyLabel = new Label(Arrays.toString(key));
+        Label keyLabel = new Label(Helper.bytesToHex(key));;
 
         // Tworzenie układu
         GridPane gridPane = new GridPane();
@@ -97,7 +97,7 @@ public class GUI extends Application {
 
         generateKeyButton.setOnAction(event -> {
             key = Helper.generateKey();
-            keyLabel.setText(Arrays.toString(key));
+            keyLabel.setText(Helper.bytesToHex(key));
         });
 
         saveKeyButton.setOnAction(event -> {
@@ -115,7 +115,7 @@ public class GUI extends Application {
             File file = fileChooser.showOpenDialog(primaryStage);
             if (file != null) {
                 key = Helper.loadKeyFromFile(file.getAbsolutePath());
-                keyLabel.setText(Arrays.toString(key));
+                keyLabel.setText(Helper.bytesToHex(key));
             }
         });
 

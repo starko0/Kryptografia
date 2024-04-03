@@ -33,4 +33,12 @@ public class Helper {
         }
         return null;
     }
+
+    public static String bytesToHex(byte[] key) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : key) {
+            sb.append(String.format("%02X", b));
+        }
+        return sb.toString();
+    }
 }
