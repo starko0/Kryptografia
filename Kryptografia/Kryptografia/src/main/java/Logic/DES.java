@@ -79,9 +79,12 @@ public class DES {
         int[] output = new int[input.length];
         System.arraycopy(input, 0, output, 0, input.length);
         for (int i = 0; i < shiftAmount; i++) {
-            int temp = output[0];
-            System.arraycopy(output, 1, output, 0, output.length - 1);
-            output[output.length - 1] = temp;
+            int tempLeft = output[0];
+            int tempRight = output[28];
+            System.arraycopy(output, 1, output, 0, 27);
+            System.arraycopy(output, 29, output, 28, 27);
+            output[27] = tempLeft;
+            output[55] = tempRight;
         }
         return output;
     }
