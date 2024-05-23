@@ -91,6 +91,8 @@ public void saveKeysToFile(String filePath) throws IOException {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
         writer.write("q=" + q.toString(16));
         writer.newLine();
+        writer.write("a=" + a.toString(16));
+        writer.newLine();
         writer.write("v=" + v.toString(16));
         writer.newLine();
         writer.write("s=" + s.toString(16));
@@ -101,33 +103,42 @@ public void saveKeysToFile(String filePath) throws IOException {
     }
 }
 
-public void loadKeysFromFile(String filePath) throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split("=");
-            if (parts.length == 2) {
-                String key = parts[0];
-                String value = parts[1];
-                switch (key) {
-                    case "q":
-                        q = new BigInteger(value, 16);
-                        break;
-                    case "v":
-                        v = new BigInteger(value, 16);
-                        break;
-                    case "s":
-                        s = new BigInteger(value, 16);
-                        break;
-                    case "p":
-                        p = new BigInteger(value, 16);
-                        break;
+    public void loadKeysFromFile(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    String key = parts[0];
+                    String value = parts[1];
+                    switch (key) {
+                        case "q":
+                            q = new BigInteger(value, 16);
+                            System.out.println("Loaded q: " + q.toString(16));
+                            break;
+                        case "v":
+                            v = new BigInteger(value, 16);
+                            System.out.println("Loaded v: " + v.toString(16));
+                            break;
+                        case "s":
+                            s = new BigInteger(value, 16);
+                            System.out.println("Loaded s: " + s.toString(16));
+                            break;
+                        case "p":
+                            p = new BigInteger(value, 16);
+                            System.out.println("Loaded p: " + p.toString(16));
+                            break;
+                        case "a":
+                            a = new BigInteger(value, 16);
+                            System.out.println("Loaded a: " + a.toString(16));
+                            break;
+                    }
                 }
             }
+        } catch (IOException e) {
+            throw new IOException("Błąd odczytu kluczy z pliku: " + e.getMessage());
         }
-    } catch (IOException e) {
-        throw new IOException("Błąd odczytu kluczy z pliku: " + e.getMessage());
     }
-}
+
 
 }
